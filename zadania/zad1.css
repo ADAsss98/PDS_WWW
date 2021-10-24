@@ -1,0 +1,23 @@
+p
+{
+	color: black;
+}
+
+section
+{
+	width: 10%;
+	color:white;
+	margin-left:45%;
+}
+
+div
+{
+	border:1px solid black;
+	width: 30%;
+	float:left;
+	text-align:center;
+}
+div:hover
+{
+	color:black;
+}

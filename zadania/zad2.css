@@ -1,0 +1,59 @@
+p
+{
+	color: black;
+}
+#germanyrectangle
+{
+	width:250px;
+	height:150px;
+}
+.germany
+{
+	float:left;
+	width: 250px;
+	height: 50px;
+}
+#black
+{
+	background-color: black;
+}
+#red
+{
+	background-color: red;
+}
+#yellow
+{
+	background-color: yellow;
+}
+#white
+{
+	background-color: white;
+}
+#circleGer
+{
+	height: 150px;
+	width: 150px;
+	box-shadow: 5px 5px 5px black;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+#greenlandrectangle
+{
+	width:250px;
+	height:150px;
+}
+.greenland
+{
+	float:left;
+	width: 250px;
+	height: 75px;
+}
+#circleGre
+{
+	height: 150px;
+	width: 150px;
+	box-shadow: 5px 5px 5px black;
+	overflow: hidden;
+	border-radius: 50%;
+}
