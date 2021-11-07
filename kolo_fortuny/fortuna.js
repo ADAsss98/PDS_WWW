@@ -2,19 +2,38 @@ var game = {
   zdobyte : 0,
   zycia : 1,
 }
-//alert(data[0]['country']);
 var elem = document.getElementById("panstwa");
-//elem.innerHTML = data[getRandomInt(0,data.length)]['country'];
-var country = data[getRandomInt(0,data.length)]/*['country']*/;
+var country = data[getRandomInt(0,data.length)]['country'];
 elem.innerHTML = country;
-countryArray= [country];
+var countryArray= [...country];
+var alreadyUseLetter = [];
+var actualStatus = [];
+var indexTemp = [];
+var liter;
+
+for(var i=0;i<countryArray.length;i++)
+{
+  //alert(countryArray[i]);
+  if(countryArray[i]== "," || countryArray[i]== "." || countryArray[i]== "-")
+    {
+      actualStatus.push(countryArray[i]);
+    }
+    else if(countryArray[i]== " ")
+    {
+      actualStatus.push("&nbsp");
+    }
+    else{
+        actualStatus.push("_");
+    }
+    //alert(actualStatus[i]);
+}
 
 //alert(data.length);
 //alert(data[0]['country'][2]);
 
- for (var i = 0; i < data[0]['country'].length; i += 1) {
+ //for (var i = 0; i < data[0]['country'].length; i += 1) {
     //alert(data[0]['country'][i]);  
-  }
+  //}
 
 
 
@@ -27,38 +46,80 @@ document.getElementById("author").addEventListener("click", author);
 
 addElement("execute");
 
-//Autor
+//Author
 function author()
 {
   alert("Autor: Adam Goliński, 224806");
 }
 //FUNKCJE
-function Sprawdz_Litery(){
-  var liter = document.getElementById("wpisz_litere").value;
+function Sprawdz_Litery()
+{
+  liter = document.getElementById("wpisz_litere").value;
+  if(liter.length == 1)
+  {
+    if(alreadyUseLetter.includes(liter))
+      {
+        alert("Tej litery już użyto, spróbuj innej");
+      }
+      else
+      {
+        alreadyUseLetter.push(liter);
+        //alert(alreadyUseLetter);
+        gameCheck();
+      }
+    }
+  else
+  {
+    alert("Źle, wpisz jedną literę");
+  }
+}
+function gameCheck()
+{
   //alert(liter);
-  //alert(getRandomInt(10,20));
+  //indexTemp = countryArray.indexOf(liter);
+  //if(countryArray.indexOf(liter) != -1)
+    //{
+      //alert("ok");
+    //}
+    //else
+    //{
+      //alert("Nie ma takiej litery");
+    //}
+    for(var i=0;i<countryArray.length;i++)
+      {
+        if(countryArray[i] == liter)
+        {
+            actualStatus[i] = countryArray[i];
+            //alert(actualStatus[i]);
+        
+        }
+    }
+    clearBox("execute");
+    addElement("execute");
 }
 
+function clearBox(mydiv)
+{
+    document.getElementById(mydiv).innerHTML = "";
+}
 
 function addElement(mydiv)
 {
- 
+  //newDiv.innerHTML = "";
   //newDiv = document.createElement("span");
-  //newDiv.innerHTML = "jasiokotek";
-  newDiv = document.createElement("span");
-  for (var i=0; i<country.length; i++)
-  {
-    newDiv.innerHTML = "_ ";
-  }
+  //newDiv.innerHTML = actualStatus.join(" ");
+  document.getElementById(mydiv).innerHTML = actualStatus.join(" ");
 
-  my_div = document.getElementById(mydiv);
-  document.body.insertBefore(newDiv, my_div);
+  //my_div = document.getElementById(mydiv);
+  //document.body.insertBefore(newDiv, my_div);
 
+/*
   newDiv2 = document.createElement("span");
   newDiv2.innerHTML = "jasiokotek2";
   document.body.insertBefore(newDiv2, my_div.nextSibling);
 
-  newDiv.classList.add("mystyle");  
+  newDiv.classList.add("mystyle"); 
+  */
 }
 
 function getRandomInt(min, max) {
