@@ -1,10 +1,11 @@
 var game = {
   zdobyte : 0,
-  zycia : 1,
+  zycia : 3,
 }
 var elem = document.getElementById("panstwa");
 var country = data[getRandomInt(0,data.length)]['country'];
-elem.innerHTML = country;
+//elem.innerHTML = country;
+country = country.toUpperCase();
 var countryArray= [...country];
 var alreadyUseLetter = [];
 var actualStatus = [];
@@ -55,6 +56,8 @@ function author()
 function Sprawdz_Litery()
 {
   liter = document.getElementById("wpisz_litere").value;
+  liter = liter.toUpperCase();
+  //alert(liter);
   if(liter.length == 1)
   {
     if(alreadyUseLetter.includes(liter))
@@ -75,16 +78,20 @@ function Sprawdz_Litery()
 }
 function gameCheck()
 {
-  //alert(liter);
-  //indexTemp = countryArray.indexOf(liter);
-  //if(countryArray.indexOf(liter) != -1)
-    //{
-      //alert("ok");
-    //}
-    //else
-    //{
-      //alert("Nie ma takiej litery");
-    //}
+  if(countryArray.indexOf(liter) != -1)
+    {
+      game.zdobyte++;
+    }
+    else
+    {
+      alert("Nie ma takiej litery");
+      game.zycia--;
+      if(game.zycia==0)
+      {
+        endGame();
+      }
+
+    }
     for(var i=0;i<countryArray.length;i++)
       {
         if(countryArray[i] == liter)
@@ -120,6 +127,10 @@ function addElement(mydiv)
 
   newDiv.classList.add("mystyle"); 
   */
+}
+function endGame()
+{
+  alert("Przegrałeś, zdobyłeś "+game.zdobyte+" pkt");
 }
 
 function getRandomInt(min, max) {
