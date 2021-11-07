@@ -1,0 +1,12 @@
+#wrap{
+    position: relative;
+    float: left;
+    width: 100%;
+    border: 1px solid red;
+}
+body{
+    background: url('back.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
