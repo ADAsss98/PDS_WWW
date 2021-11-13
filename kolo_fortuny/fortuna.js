@@ -3,45 +3,26 @@ var game = {
   zycia : 3,
 }
 var elem = document.getElementById("panstwa");
-var country = data[getRandomInt(0,data.length)]['country'];
+var country;
+randomCountry;
+//country = data[getRandomInt(0,data.length)]['country'];
+//country = country.toUpperCase();
+//alert(country);
 //elem.innerHTML = country;
-country = country.toUpperCase();
-var countryArray= [...country];
+var countryArray = [];
 var alreadyUseLetter = [];
 var actualStatus = [];
 var indexTemp = [];
 var liter;
+var length;
 
-for(var i=0;i<countryArray.length;i++)
-{
-  //alert(countryArray[i]);
-  if(countryArray[i]== "," || countryArray[i]== "." || countryArray[i]== "-")
-    {
-      actualStatus.push(countryArray[i]);
-    }
-    else if(countryArray[i]== " ")
-    {
-      actualStatus.push("&nbsp");
-    }
-    else{
-        actualStatus.push("_");
-    }
-    //alert(actualStatus[i]);
-}
-
-//alert(data.length);
-//alert(data[0]['country'][2]);
-
- //for (var i = 0; i < data[0]['country'].length; i += 1) {
-    //alert(data[0]['country'][i]);  
-  //}
-
-
+newGame();
 
 //LISTENERS
 
 document.getElementById("graj").addEventListener("click", Sprawdz_Litery);
 document.getElementById("author").addEventListener("click", author);
+document.getElementById("newgame").addEventListener("click", newGame);
 
 //alert(game.zycia);
 
@@ -53,6 +34,63 @@ function author()
   alert("Autor: Adam Goliński, 224806");
 }
 //FUNKCJE
+function clearVars()
+{
+    countryArray = [];
+    alreadyUseLetter = [];
+    actualStatus = [];
+    indexTemp = [];
+    length = actualStatus.length;
+}
+function newGame()
+{
+  clearVars();
+  randomCountry();
+  lives();
+  for(var i=0;i<countryArray.length;i++)
+  {
+    //alert(countryArray[i]);
+    if(countryArray[i]== "," || countryArray[i]== "." || countryArray[i]== "-")
+      {
+        actualStatus.push(countryArray[i]);
+      }
+      else if(countryArray[i]== " ")
+      {
+        actualStatus.push("&nbsp");
+      }
+      else{
+        actualStatus.push("_");
+      }
+  }
+  clearBox("execute");
+  addElement("execute");
+}
+
+function randomCountry()
+{
+  country = data[getRandomInt(0,data.length)]['country'];
+  country = country.toUpperCase();
+  countryArray = [...country];
+  //alert(country);
+}
+function allCountry()
+{
+  for(var i=0; i<actualStatus.length; i++)
+  {
+    //alert(countryArray[i]);
+    if(actualStatus[i]!= "_")
+      {
+        length--;
+      }
+      //else
+      //{
+        //length=actualStatus.length;
+      //}
+  }
+  if(length==0)
+  winGame();
+  //alert(length);
+}
 function Sprawdz_Litery()
 {
   liter = document.getElementById("wpisz_litere").value;
@@ -75,6 +113,12 @@ function Sprawdz_Litery()
   {
     alert("Źle, wpisz jedną literę");
   }
+}
+function lives()
+{
+  document.getElementById('lives').innerHTML = "";
+  document.getElementById('lives').innerHTML = "Życia: " + game.zycia + "<br>" + "Punkty: " + game.zdobyte;
+
 }
 function gameCheck()
 {
@@ -101,6 +145,9 @@ function gameCheck()
         
         }
     }
+    length=actualStatus.length;
+    allCountry();
+    lives();
     clearBox("execute");
     addElement("execute");
 }
@@ -112,25 +159,20 @@ function clearBox(mydiv)
 
 function addElement(mydiv)
 {
-  //newDiv.innerHTML = "";
-  //newDiv = document.createElement("span");
-  //newDiv.innerHTML = actualStatus.join(" ");
   document.getElementById(mydiv).innerHTML = actualStatus.join(" ");
-
-  //my_div = document.getElementById(mydiv);
-  //document.body.insertBefore(newDiv, my_div);
-
-/*
-  newDiv2 = document.createElement("span");
-  newDiv2.innerHTML = "jasiokotek2";
-  document.body.insertBefore(newDiv2, my_div.nextSibling);
-
-  newDiv.classList.add("mystyle"); 
-  */
 }
 function endGame()
 {
   alert("Przegrałeś, zdobyłeś "+game.zdobyte+" pkt");
+  alert(country);
+  game.zdobyte = 0;
+  game.zycia = 3;
+}
+function winGame()
+{
+  alert("Wygrałeś, zdobyłeś "+game.zdobyte+" pkt, GRATULACJE");
+  game.zdobyte = 0;
+  game.zycia = 3;
 }
 
 function getRandomInt(min, max) {
